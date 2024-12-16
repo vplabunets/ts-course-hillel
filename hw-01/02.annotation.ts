@@ -24,23 +24,23 @@ class University {
     this.name = name;
   }
 
-  addCourse(course: string) {
+  addCourse(course: string): void {
     this.courses.push(course);
   }
 
-  addGroup(group: { group: string }) {
+  addGroup(group: { group: string }): void {
     this.groups.push(group);
   }
 
-  addPerson(person: { person: string }) {
+  addPerson(person: { person: string }): void {
     this.people.push(person);
   }
 
-  findGroupByCourse(course: string) {
+  findGroupByCourse(course: string): { group?: string; course?: string } | undefined {
     return this.groups.find((group) => group.course === course);
   }
 
-  getAllPeopleByRole(role: Role) {
+  getAllPeopleByRole(role: Role): { person?: string; role?: Role }[] | never {
     switch (role) {
       case 'student':
         return this.people.filter((person) => person.role === 'student');
@@ -51,7 +51,7 @@ class University {
     }
   }
 
-  assertNeverRole(role: Role) {
+  assertNeverRole(role: Role): never {
     throw new Error(`Unhandled role: ${role}`);
   }
 }
@@ -80,7 +80,7 @@ class Group {
     this.teacher = teacher;
   }
 
-  addStudent(student: { id: number; getAverageScore: () => number }) {
+  addStudent(student: { id: number; getAverageScore: () => number }): never | void {
     if (this.students.includes(student)) {
       throw new UniversityError('Student is already in the group');
     }
@@ -88,7 +88,7 @@ class Group {
     this.students.push(student);
   }
 
-  removeStudentById(id: number) {
+  removeStudentById(id: number): never | void {
     const index = this.students.findIndex((student) => student.id === id);
 
     if (!~index) {
@@ -98,7 +98,7 @@ class Group {
     this.students.splice(index, 1);
   }
 
-  getAverageGroupScore() {
+  getAverageGroupScore(): number {
     if (this.students.length) {
       return 0;
     }
@@ -108,7 +108,7 @@ class Group {
     return totalScore / this.students.length;
   }
 
-  getStudents() {
+  getStudents(): { id: number; getAverageScore: () => number }[] {
     return [...this.students];
   }
 }
@@ -142,11 +142,11 @@ class Person {
     this.role = role;
   }
 
-  get fullName() {
+  get fullName(): string {
     return `${this.lastName} ${this.firstName}`;
   }
 
-  get age() {
+  get age(): number {
     const today = new Date();
     let age = today.getFullYear() - this.birthDay.getFullYear();
     const monthDiff = today.getMonth() - this.birthDay.getMonth();
@@ -171,15 +171,15 @@ class Teacher extends Person {
     this.specializations = specializations;
   }
 
-  assignCourse(course: { name: string }) {
+  assignCourse(course: { name: string }): void {
     this.courses.push(course);
   }
 
-  removeCourse(courseName: string) {
+  removeCourse(courseName: string): void {
     this.courses = this.courses.filter((course) => course.name !== courseName);
   }
 
-  getCourses() {
+  getCourses(): { name: string }[] {
     return [...this.courses];
   }
 }
@@ -189,7 +189,7 @@ class Student extends Person {
     totalCredits: 0,
     gpa: 0,
   };
-  enrolledCourses: { name: string }[] = [];
+  enrolledCourses: { name: string; credits: number }[] = [];
   status: string;
 
   constructor(info: {
@@ -204,7 +204,7 @@ class Student extends Person {
     this.status = 'active';
   }
 
-  enrollCourse(course: { name: string; credits: number }) {
+  enrollCourse(course: { name: string; credits: number }): void {
     if (this.status !== 'active') {
       throw new UniversityError('Cannot enroll: Student is not in active status');
     }
@@ -213,15 +213,15 @@ class Student extends Person {
     this.academicPerformance.totalCredits += course.credits;
   }
 
-  getAverageScore() {
+  getAverageScore(): number {
     return this.academicPerformance.gpa;
   }
 
-  updateAcademicStatus(newStatus: string) {
+  updateAcademicStatus(newStatus: string): void {
     this.status = newStatus;
   }
 
-  getEnrolledCourses() {
+  getEnrolledCourses(): { name: string; credits: number }[] {
     return [...this.enrolledCourses];
   }
 }
