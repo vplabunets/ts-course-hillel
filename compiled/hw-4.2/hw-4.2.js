@@ -27,63 +27,46 @@ var Operations;
     Operations["Percent"] = "percent";
 })(Operations || (Operations = {}));
 class Calculator {
-    constructor(argument1 = 0, argument2 = 0) {
-        this.calculation = 0;
-        this.argument1 = argument1;
-        this.argument2 = argument2;
+    add(argument1, argument2) {
+        return argument1 + argument2;
     }
-    get result() {
-        return this.calculation;
+    subtract(argument1, argument2) {
+        return argument1 - argument2;
     }
-    reset() {
-        this.argument1 = 0;
-        this.argument2 = 0;
-        this.calculation = 0;
+    multiply(argument1, argument2) {
+        return argument1 * argument2;
     }
-    add() {
-        this.calculation = this.argument1 + this.argument2;
-        return this.calculation;
-    }
-    subtract() {
-        this.calculation = this.argument1 - this.argument2;
-        return this.calculation;
-    }
-    multiply() {
-        this.calculation = this.argument1 * this.argument2;
-        return this.calculation;
-    }
-    divide() {
-        if (this.argument2 !== 0) {
-            this.calculation = this.argument1 / this.argument2;
-            return this.calculation;
+    divide(argument1, argument2) {
+        if (argument2 !== 0) {
+            return argument1 / argument2;
         }
         else {
             throw new calculationError('Division by 0 is forbidden');
         }
     }
-    percent() {
-        this.calculation = (this.argument1 * this.argument2) / 100;
-        return this.calculation;
+    percent(argument1, argument2) {
+        return (argument1 * argument2) / 100;
     }
     calculate(operation, argument1, argument2) {
-        this.argument1 = argument1;
-        this.argument2 = argument2;
         switch (operation) {
             case Operations.Add:
-                return this.add();
+                return this.add(argument1, argument2);
             case Operations.Subtract:
-                return this.subtract();
+                return this.subtract(argument1, argument2);
             case Operations.Multiply:
-                return this.multiply();
+                return this.multiply(argument1, argument2);
             case Operations.Divide:
-                return this.divide();
+                return this.divide(argument1, argument2);
             case Operations.Percent:
-                return this.percent();
+                return this.percent(argument1, argument2);
             default:
                 throw new calculationError('Invalid operation');
         }
     }
 }
 const myCalculator = new Calculator();
-console.log(myCalculator.calculate(Operations.Multiply, 10, 20));
-console.log(myCalculator.result);
+console.log('10 * 20 = 200', myCalculator.calculate(Operations.Multiply, 10, 20));
+console.log('10 + 20 = 30', myCalculator.calculate(Operations.Add, 10, 20));
+console.log('10 - 20 = -10', myCalculator.calculate(Operations.Subtract, 10, 20));
+console.log('10 / 20 = 0.5', myCalculator.calculate(Operations.Divide, 10, 20));
+console.log('10 % 20 = ', myCalculator.calculate(Operations.Percent, 10, 20));
