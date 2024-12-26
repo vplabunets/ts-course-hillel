@@ -15,24 +15,9 @@ export abstract class AbstractFigureClass {
 export abstract class AbstractEllipticalFigureClass extends AbstractFigureClass {
   abstract radius: number | number[];
 
-  constructor(name: string, color: string) {
-    super(name, color);
-  }
-
   abstract calculateArea(): number;
   abstract calculatePerimeter(): number;
   abstract printInfo(): string;
-}
-
-export enum PolygonType {
-  Triangle = 3,
-  Quadrilateral = 4,
-  Pentagon = 5,
-  Hexagon = 6,
-  Heptagon = 7,
-  Octagon = 8,
-  Nonagon = 9,
-  Decagon = 10,
 }
 
 export abstract class AbstractPolygonFigureClass extends AbstractFigureClass {

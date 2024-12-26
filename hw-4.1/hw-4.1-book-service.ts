@@ -39,7 +39,7 @@ interface IBook {
   publicationYear: number;
   genre: BookGenre;
   authorId: number;
-  modifyBook(key: string, value: string | number): void;
+  // modifyBook(key: string, value: string | number): void;
 }
 
 interface IAuthor {
@@ -86,13 +86,13 @@ class Book implements IBook {
     this.authorId = authorId;
   }
 
-  modifyBook(key: keyof IBook, value: string | number | BookGenre): void {
-    this[key] = value;
-    // Не знаю як описати тиапи, щоб тут не було помилки
-    //Type 'string | number' is not assignable to type 'never'.
-    //Type 'string' is not assignable to type 'never'.ts(2322)
-    //this: this
-  }
+  // modifyBook(key: keyof IBook, value: string | number | BookGenre): void {
+  // this[key] = value;
+  // Не знаю як описати тиапи, щоб тут не було помилки
+  //Type 'string | number' is not assignable to type 'never'.
+  //Type 'string' is not assignable to type 'never'.ts(2322)
+  //this: this
+  // }
 }
 
 class BookService implements IBookService {

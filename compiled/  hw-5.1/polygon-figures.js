@@ -1,10 +1,26 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.PolygonType = void 0;
 const utils_1 = require("./utils");
 const abstract_classes_1 = require("./abstract-classes");
+var QuadrilateralType;
+(function (QuadrilateralType) {
+    QuadrilateralType["Rectangle"] = "Rectangle";
+    QuadrilateralType["Square"] = "Square";
+})(QuadrilateralType || (QuadrilateralType = {}));
+var PolygonType;
+(function (PolygonType) {
+    PolygonType["Triangle"] = "Triangle";
+    PolygonType["Pentagon"] = "Pentagon";
+    PolygonType["Hexagon"] = "Hexagon";
+    PolygonType["Heptagon"] = "Heptagon";
+    PolygonType["Octagon"] = "Octagon";
+    PolygonType["Nonagon"] = "Nonagon";
+    PolygonType["Decagon"] = "Decagon";
+})(PolygonType || (exports.PolygonType = PolygonType = {}));
 class Rectangle extends abstract_classes_1.AbstractPolygonFigureClass {
     constructor(color, sides) {
-        super('Rectangle', color);
+        super(QuadrilateralType.Rectangle, color);
         this.sides = sides;
     }
     printInfo() {
@@ -21,7 +37,7 @@ console.log(myRectangle.printPerimeterFormula());
 console.log('Rectangle info:', myRectangle.printInfo());
 class Square extends abstract_classes_1.AbstractPolygonFigureClass {
     constructor(color, sides) {
-        super('Square', color);
+        super(QuadrilateralType.Square, color);
         this.sides = sides;
     }
     printInfo() {
@@ -58,6 +74,7 @@ class Triangle extends abstract_classes_1.AbstractPolygonFigureClass {
     }
     calcHeight() {
         this.printTriangleType();
+        const SQUARE_SIDE = this.sides[0];
         if (this.triangleType === utils_1.TriangleTypes.Isosceles) {
             const [a, b, c] = this.sides;
             let side1 = a;
@@ -82,7 +99,7 @@ class Triangle extends abstract_classes_1.AbstractPolygonFigureClass {
             return height.toFixed(2);
         }
         if (this.triangleType === utils_1.TriangleTypes.Equilateral) {
-            return ((Math.sqrt(3) * this.sides[0]) / 2).toFixed(2);
+            return ((Math.sqrt(3) * SQUARE_SIDE) / 2).toFixed(2);
         }
         if (this.triangleType === utils_1.TriangleTypes.Scalene) {
             return 'Height of scalene triangle should be calculated in a separate task';
@@ -108,7 +125,7 @@ class Polygon extends abstract_classes_1.AbstractPolygonFigureClass {
     }
 }
 const myPolygon = new Polygon('green', [2, 4, 2, 4, 4, 2]);
-console.log('Polygons has', myPolygon.getNumberOfSides());
+console.log('Polygons has', myPolygon.getNumberOfSides(), ' sides');
 console.log('Polygon perimeter:', myPolygon.calculatePerimeter());
 console.log(myPolygon.printPerimeterFormula());
 console.log('Polygon info:', myPolygon.printInfo());
