@@ -108,7 +108,7 @@ class Polygon extends abstract_classes_1.AbstractPolygonFigureClass {
     }
 }
 const myPolygon = new Polygon('green', [2, 4, 2, 4, 4, 2]);
-console.log('Polygons has', myPolygon.getNumberOfSides());
+console.log('Polygons has', myPolygon.getNumberOfSides(), ' sides');
 console.log('Polygon perimeter:', myPolygon.calculatePerimeter());
 console.log(myPolygon.printPerimeterFormula());
 console.log('Polygon info:', myPolygon.printInfo());
