@@ -1,11 +1,23 @@
 import { isTriangle, getTriangleType, TriangleTypes } from './utils';
 import { AbstractPolygonFigureClass } from './abstract-classes';
-
+enum QuadrilateralType {
+  Rectangle = 'Rectangle',
+  Square = 'Square',
+}
+export enum PolygonType {
+  Triangle = 'Triangle',
+  Pentagon = 'Pentagon',
+  Hexagon = 'Hexagon',
+  Heptagon = 'Heptagon',
+  Octagon = 'Octagon',
+  Nonagon = 'Nonagon',
+  Decagon = 'Decagon',
+}
 class Rectangle extends AbstractPolygonFigureClass {
   sides: number[];
 
   constructor(color: string, sides: number[]) {
-    super('Rectangle', color);
+    super(QuadrilateralType.Rectangle, color);
     this.sides = sides;
   }
 
@@ -27,7 +39,7 @@ class Square extends AbstractPolygonFigureClass {
   sides: number[];
 
   constructor(color: string, sides: number[]) {
-    super('Square', color);
+    super(QuadrilateralType.Square, color);
     this.sides = sides;
   }
 
@@ -69,6 +81,7 @@ class Triangle extends AbstractPolygonFigureClass {
 
   calcHeight() {
     this.printTriangleType();
+    const SQUARE_SIDE = this.sides[0];
     if (this.triangleType === TriangleTypes.Isosceles) {
       const [a, b, c] = this.sides;
 
@@ -94,7 +107,7 @@ class Triangle extends AbstractPolygonFigureClass {
       return height.toFixed(2);
     }
     if (this.triangleType === TriangleTypes.Equilateral) {
-      return ((Math.sqrt(3) * this.sides[0]) / 2).toFixed(2);
+      return ((Math.sqrt(3) * SQUARE_SIDE) / 2).toFixed(2);
     }
     if (this.triangleType === TriangleTypes.Scalene) {
       return 'Height of scalene triangle should be calculated in a separate task';

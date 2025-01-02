@@ -1,16 +1,20 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const abstract_classes_1 = require("./abstract-classes");
+const PI = Math.PI;
+const POWER_VALUE = 2;
+const CIRCLE_PERIMETER_MULTIPLIER = 2;
+const ELLIPSE_PERIMETER_MULTIPLIER = 4;
 class Circle extends abstract_classes_1.AbstractEllipticalFigureClass {
     constructor(color, radius) {
         super('Circle', color);
         this.radius = radius;
     }
     calculateArea() {
-        return +(Math.PI * Math.pow(this.radius, 2)).toFixed(2);
+        return +(PI * Math.pow(this.radius, POWER_VALUE)).toFixed(2);
     }
     calculatePerimeter() {
-        return +(2 * Math.PI * this.radius).toFixed(2);
+        return +(CIRCLE_PERIMETER_MULTIPLIER * PI * this.radius).toFixed(2);
     }
     printInfo() {
         return `${this.color} ${this.name} with radius ${this.radius} has area: ${this.calculateArea()}  `;
@@ -19,15 +23,18 @@ class Circle extends abstract_classes_1.AbstractEllipticalFigureClass {
 class Ellipse extends abstract_classes_1.AbstractEllipticalFigureClass {
     constructor(color, radius) {
         super('Ellipse', color);
+        this.color = color;
         this.radius = radius;
     }
     calculateArea() {
-        return +(Math.PI * this.radius[0] * this.radius[1]).toFixed(2);
+        const [majorSemiAxis, minorSemiAxes] = this.radius;
+        return +(PI * majorSemiAxis * minorSemiAxes).toFixed(2);
     }
     calculatePerimeter() {
-        return (4 *
-            ((Math.PI * this.radius[0] * this.radius[1] + Math.pow(this.radius[0] + this.radius[1], 2)) /
-                (this.radius[0] + this.radius[1])));
+        const [majorSemiAxis, minorSemiAxes] = this.radius;
+        return (ELLIPSE_PERIMETER_MULTIPLIER *
+            ((PI * majorSemiAxis * minorSemiAxes + Math.pow(majorSemiAxis + minorSemiAxes, POWER_VALUE)) /
+                (majorSemiAxis + minorSemiAxes)));
     }
     printInfo() {
         return `${this.color} ${this.name} with radius ${this.radius} has area: ${this.calculateArea()}  `;
@@ -40,20 +47,22 @@ class EllipticalFigure extends abstract_classes_1.AbstractEllipticalFigureClass 
     }
     calculateArea() {
         if (typeof this.radius === 'number') {
-            return +(Math.PI * Math.pow(this.radius, 2)).toFixed(2);
+            return +(PI * Math.pow(this.radius, POWER_VALUE)).toFixed(2);
         }
         else {
-            return +(Math.PI * this.radius[0] * this.radius[1]).toFixed(2);
+            const [majorSemiAxis, minorSemiAxes] = this.radius;
+            return +(PI * majorSemiAxis * minorSemiAxes).toFixed(2);
         }
     }
     calculatePerimeter() {
         if (typeof this.radius === 'number') {
-            return +(2 * Math.PI * this.radius).toFixed(2);
+            return +(CIRCLE_PERIMETER_MULTIPLIER * PI * this.radius).toFixed(2);
         }
         else {
-            return (4 *
-                ((Math.PI * this.radius[0] * this.radius[1] + Math.pow(this.radius[0] + this.radius[1], 2)) /
-                    (this.radius[0] + this.radius[1])));
+            const [majorSemiAxis, minorSemiAxes] = this.radius;
+            return (ELLIPSE_PERIMETER_MULTIPLIER *
+                ((PI * majorSemiAxis * minorSemiAxes + Math.pow(majorSemiAxis + minorSemiAxes, POWER_VALUE)) /
+                    (majorSemiAxis + minorSemiAxes)));
         }
     }
     printInfo() {

@@ -1,5 +1,9 @@
 import { AbstractEllipticalFigureClass } from './abstract-classes';
 
+const PI = Math.PI;
+const POWER_VALUE = 2;
+const CIRCLE_PERIMETER_MULTIPLIER = 2;
+const ELLIPSE_PERIMETER_MULTIPLIER = 4;
 class Circle extends AbstractEllipticalFigureClass {
   radius: number;
 
@@ -9,10 +13,10 @@ class Circle extends AbstractEllipticalFigureClass {
   }
 
   calculateArea(): number {
-    return +(Math.PI * Math.pow(this.radius, 2)).toFixed(2);
+    return +(PI * Math.pow(this.radius, POWER_VALUE)).toFixed(2);
   }
   calculatePerimeter(): number {
-    return +(2 * Math.PI * this.radius).toFixed(2);
+    return +(CIRCLE_PERIMETER_MULTIPLIER * PI * this.radius).toFixed(2);
   }
 
   printInfo(): string {
@@ -21,21 +25,27 @@ class Circle extends AbstractEllipticalFigureClass {
 }
 
 class Ellipse extends AbstractEllipticalFigureClass {
+  color: string;
   radius: number[];
 
   constructor(color: string, radius: number[]) {
     super('Ellipse', color);
+    this.color = color;
     this.radius = radius;
   }
 
   calculateArea(): number {
-    return +(Math.PI * this.radius[0] * this.radius[1]).toFixed(2);
+    const [majorSemiAxis, minorSemiAxes] = this.radius;
+
+    return +(PI * majorSemiAxis * minorSemiAxes).toFixed(2);
   }
   calculatePerimeter(): number {
+    const [majorSemiAxis, minorSemiAxes] = this.radius;
+
     return (
-      4 *
-      ((Math.PI * this.radius[0] * this.radius[1] + Math.pow(this.radius[0] + this.radius[1], 2)) /
-        (this.radius[0] + this.radius[1]))
+      ELLIPSE_PERIMETER_MULTIPLIER *
+      ((PI * majorSemiAxis * minorSemiAxes + Math.pow(majorSemiAxis + minorSemiAxes, POWER_VALUE)) /
+        (majorSemiAxis + minorSemiAxes))
     );
   }
 
@@ -54,19 +64,22 @@ class EllipticalFigure extends AbstractEllipticalFigureClass {
 
   calculateArea(): number {
     if (typeof this.radius === 'number') {
-      return +(Math.PI * Math.pow(this.radius, 2)).toFixed(2);
+      return +(PI * Math.pow(this.radius, POWER_VALUE)).toFixed(2);
     } else {
-      return +(Math.PI * this.radius[0] * this.radius[1]).toFixed(2);
+      const [majorSemiAxis, minorSemiAxes] = this.radius;
+      return +(PI * majorSemiAxis * minorSemiAxes).toFixed(2);
     }
   }
   calculatePerimeter(): number {
     if (typeof this.radius === 'number') {
-      return +(2 * Math.PI * this.radius).toFixed(2);
+      return +(CIRCLE_PERIMETER_MULTIPLIER * PI * this.radius).toFixed(2);
     } else {
+      const [majorSemiAxis, minorSemiAxes] = this.radius;
+
       return (
-        4 *
-        ((Math.PI * this.radius[0] * this.radius[1] + Math.pow(this.radius[0] + this.radius[1], 2)) /
-          (this.radius[0] + this.radius[1]))
+        ELLIPSE_PERIMETER_MULTIPLIER *
+        ((PI * majorSemiAxis * minorSemiAxes + Math.pow(majorSemiAxis + minorSemiAxes, POWER_VALUE)) /
+          (majorSemiAxis + minorSemiAxes))
       );
     }
   }
