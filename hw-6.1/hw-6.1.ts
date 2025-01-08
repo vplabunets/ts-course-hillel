@@ -33,7 +33,7 @@ function concatenateTranslations(key: keyof typeof Languages, ...translations: T
   const values = translations.map((trans) => trans[key]);
 
   if (values.some((value) => value === undefined)) {
-    return `Translation for ${Languages.key} languan`;
+    return `Translation for ${Languages[key]} languan`;
   }
 
   return values.join(' ');
