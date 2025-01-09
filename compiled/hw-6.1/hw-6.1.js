@@ -1,34 +1,44 @@
 "use strict";
+var Languages;
+(function (Languages) {
+    Languages["EN"] = "English";
+    Languages["UK"] = "Ukrainian";
+    Languages["FR"] = "French";
+    Languages["DE"] = "German";
+    Languages["CZ"] = "Czech";
+    Languages["IT"] = "Italian";
+    Languages["PT"] = "Portuguese";
+})(Languages || (Languages = {}));
 const wordNew = {
-    en: 'new',
-    uk: 'новий',
-    fr: 'nouveau',
-    de: 'neu',
-    cz: 'novy',
-    it: 'nuovo',
+    EN: 'new',
+    UK: 'новий',
+    FR: 'nouveau',
+    DE: 'neu',
+    CZ: 'novy',
+    IT: 'nuovo',
 };
 const wordYear = {
-    en: 'year',
-    uk: 'рік',
-    fr: 'anne',
-    de: 'jahr',
-    cz: 'rok',
-    it: 'anno',
+    EN: 'year',
+    UK: 'рік',
+    FR: 'anne',
+    DE: 'jahr',
+    CZ: 'rok',
+    IT: 'anno',
 };
 function concatenateTranslations(key, ...translations) {
     const values = translations.map((trans) => trans[key]);
     if (values.some((value) => value === undefined)) {
-        return 'undefined';
+        return `Translation for ${Languages[key]} languan`;
     }
     return values.join(' ');
 }
-console.log(concatenateTranslations('en', wordNew, wordYear));
-console.log(concatenateTranslations('uk', wordNew, wordYear));
-console.log(concatenateTranslations('fr', wordNew, wordYear));
-console.log(concatenateTranslations('de', wordNew, wordYear));
-console.log(concatenateTranslations('cz', wordNew, wordYear));
-console.log(concatenateTranslations('it', wordNew, wordYear));
-console.log(concatenateTranslations('ess', wordNew, wordYear));
+console.log(concatenateTranslations('EN', wordNew, wordYear));
+console.log(concatenateTranslations('UK', wordNew, wordYear));
+console.log(concatenateTranslations('FR', wordNew, wordYear));
+console.log(concatenateTranslations('DE', wordNew, wordYear));
+console.log(concatenateTranslations('DE', wordNew, wordYear));
+console.log(concatenateTranslations('IT', wordNew, wordYear));
+console.log(concatenateTranslations('PT', wordNew, wordYear));
 const wordNew2 = {
     en: 'new',
     uk: 'новий',
@@ -54,10 +64,10 @@ function concatenateTranslations2(key, ...translations) {
     }
     return values.join(' ');
 }
-console.log(concatenateTranslations2('en', wordNew2, wordYear2));
-console.log(concatenateTranslations2('uk', wordNew2, wordYear2));
-console.log(concatenateTranslations2('fr', wordNew2, wordYear2));
-console.log(concatenateTranslations2('de', wordNew2, wordYear2));
-console.log(concatenateTranslations2('cz', wordNew2, wordYear2));
-console.log(concatenateTranslations2('it', wordNew2, wordYear2));
-console.log(concatenateTranslations2('ess', wordNew2, wordYear2));
+console.log(concatenateTranslations2('EN', wordNew2, wordYear2));
+console.log(concatenateTranslations2('UK', wordNew2, wordYear2));
+console.log(concatenateTranslations2('FR', wordNew2, wordYear2));
+console.log(concatenateTranslations2('DE', wordNew2, wordYear2));
+console.log(concatenateTranslations2('CZ', wordNew2, wordYear2));
+console.log(concatenateTranslations2('IT', wordNew2, wordYear2));
+console.log(concatenateTranslations2('PT', wordNew2, wordYear2));
