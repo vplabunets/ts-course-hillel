@@ -1,59 +1,47 @@
 type UserData = { name: string; age: number };
 
 class HistoricalUser {
+  errorMessage: string = 'Invalid person data';
+
   fetchData(): unknown {
     return { name: 'Hannibal', age: 64 };
   }
 
-  printPersonInfo(person: { name: string; age: number }): void {
-    console.log(`Name - ${person.name}, Age - ${person.age}`);
-  }
-
-  typeAssertionCheck(fetchedData: unknown): void | never {
-    const person = fetchedData as UserData;
-
-    if (person) {
-      this.printPersonInfo(person);
+  printPersonInfo(person: unknown): void {
+    if (isUserData(person)) {
+      console.log(`Name - ${person.name}, Age - ${person.age}`);
     } else {
-      throw new Error('Invalid response');
-    }
-  }
-
-  propertyCheck(fetchedData: unknown): void | never {
-    if (
-      fetchedData &&
-      typeof (fetchedData as UserData).name === 'string' &&
-      typeof (fetchedData as UserData).age === 'number'
-    ) {
-      const person = fetchedData as UserData;
-      this.printPersonInfo(person);
-    } else {
-      throw new Error('Invalid response');
-    }
-  }
-
-  typeGuardCheck(fetchedData: unknown): void | never {
-    if (fetchedData === null || typeof fetchedData !== 'object') {
-      throw new Error('Invalid response');
-    }
-
-    if ('name' in fetchedData && 'age' in fetchedData) {
-      const name = fetchedData['name'];
-      const age = fetchedData['age'];
-
-      if (typeof name === 'string' && typeof age === 'number') {
-        this.printPersonInfo({ name, age });
-      } else {
-        throw new Error('Invalid property types');
-      }
-    } else {
-      throw new Error('Missing properties');
+      typeAssertionCheck(person, this.errorMessage);
+      console.log(`Name - ${person.name}, Age - ${person.age}`);
     }
   }
 }
 
 const Hannibal = new HistoricalUser();
+const result = Hannibal.fetchData();
 
-Hannibal.typeAssertionCheck(Hannibal.fetchData());
-Hannibal.propertyCheck(Hannibal.fetchData());
-Hannibal.typeGuardCheck(Hannibal.fetchData());
+Hannibal.printPersonInfo(result);
+
+function isUserData(person: unknown): person is UserData {
+  return (
+    typeof person === 'object' &&
+    person !== null &&
+    'name' in person &&
+    'age' in person &&
+    typeof (person as UserData).name === 'string' &&
+    typeof (person as UserData).age === 'number'
+  );
+}
+
+function typeAssertionCheck(data: unknown, message: string): asserts data is UserData {
+  if (
+    typeof data !== 'object' ||
+    data === null ||
+    !('name' in data) ||
+    !('age' in data) ||
+    typeof (data as UserData).name !== 'string' ||
+    typeof (data as UserData).age !== 'number'
+  ) {
+    throw new Error(message);
+  }
+}
