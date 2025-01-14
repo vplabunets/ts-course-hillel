@@ -1,17 +1,4 @@
 "use strict";
-// type User = {
-//   username: string;
-//   password: string;
-// };
-// type Guest = {
-//   sessionId: string;
-// };
-// type Admin = User & {
-//   role: 'admin';
-// };
-// type ExternalUser = {
-//   oauthToken: string;
-// };
 class User {
     constructor(username, password) {
         this.username = '';
@@ -99,3 +86,16 @@ Cinemateka.login(PylypOrlyk);
 Cinemateka.login(GuestUser);
 Cinemateka.login(AdminPetroDoroshenko);
 Cinemateka.login(UnknownExternalUser);
+// type User = {
+//   username: string;
+//   password: string;
+// };
+// type Guest = {
+//   sessionId: string;
+// };
+// type Admin = User & {
+//   role: 'admin';
+// };
+// type ExternalUser = {
+//   oauthToken: string;
+// };
