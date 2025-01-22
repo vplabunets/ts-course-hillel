@@ -6,8 +6,8 @@ class User {
         this.username = username;
         this.password = password;
     }
-    static login(user) {
-        console.log(`User ${user.username} was authorized`);
+    static isUser(user) {
+        return user instanceof User && !(user instanceof Admin);
     }
 }
 class Guest {
@@ -15,8 +15,8 @@ class Guest {
         this.sessionId = '';
         this.sessionId = sessionId;
     }
-    static login() {
-        console.log('User was authorized as a guest');
+    static isGuest(user) {
+        return user instanceof Guest;
     }
 }
 class Admin extends User {
@@ -25,21 +25,16 @@ class Admin extends User {
         this.role = 'admin';
         this.role = admin;
     }
-    static login(admin) {
-        if (admin instanceof Admin && admin.role === 'admin') {
-            console.log(`User ${admin.username} was authorized as Admin`);
-        }
-        else {
-            throw new Error('Unauthorized login attempt');
-        }
+    static isAdmin(user) {
+        return user instanceof Admin && user.role === 'admin';
     }
 }
 class ExternalUser {
     constructor(oauthToken) {
         this.oauthToken = oauthToken;
     }
-    static login() {
-        console.log(`External user was authorized`);
+    static isExternalUser(user) {
+        return user instanceof ExternalUser;
     }
 }
 class OnlineCinema {
@@ -47,30 +42,18 @@ class OnlineCinema {
         this.users = initialUsers;
         this.guestSessions = initialGuestSessions;
     }
-    isAdmin(user) {
-        return user instanceof Admin && user.role === 'admin';
-    }
-    isUser(user) {
-        return user instanceof User && !(user instanceof Admin);
-    }
-    isGuest(user) {
-        return user instanceof Guest;
-    }
-    isExternalUser(user) {
-        return user instanceof ExternalUser;
-    }
     login(user) {
-        if (user instanceof User && this.isUser(user)) {
-            User.login(user);
+        if (User.isUser(user)) {
+            console.log(`User ${user.username} was authorized`);
         }
-        else if (user instanceof Guest && this.isGuest(user)) {
-            Guest.login();
+        else if (Guest.isGuest(user)) {
+            console.log(`Guest with session ID ${user.sessionId} was authorized`);
         }
-        else if (user instanceof Admin && this.isAdmin(user)) {
-            Admin.login(user);
+        else if (Admin.isAdmin(user)) {
+            console.log(`Admin ${user.username} was authorized`);
         }
-        else if (user instanceof ExternalUser && this.isExternalUser(user)) {
-            ExternalUser.login();
+        else if (ExternalUser.isExternalUser(user)) {
+            console.log(`External user with token ${user.oauthToken} was authorized`);
         }
         else {
             throw Error('User was not authorized');
