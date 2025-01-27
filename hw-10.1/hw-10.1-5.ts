@@ -6,9 +6,13 @@ interface IPlayer5 {
   position: string;
 }
 
-type ReadonlyByKeys<T> = {
-  readonly [K in keyof T]: T[K];
-};
+type ReadonlyByKeys<T, K extends keyof T = keyof T> = {
+  readonly [P in keyof T as P extends K ? P : never]: T[P];
+} & {
+  readonly [P in keyof T as P extends K ? never : P]: T[P];
+} extends infer O
+  ? { readonly [P in keyof O]: O[P] }
+  : never;
 
 const playerReadonlyByKeys: ReadonlyByKeys<IPlayer5> = {
   name: 'Bill',

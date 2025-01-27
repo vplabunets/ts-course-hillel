@@ -1,6 +1,6 @@
 "use strict";
 const playerPartialByKeys = {
-    name: 'Bill',
-    //   position: 'defender',
+    // name: 'Bill',
+    position: 'defender',
 };
 console.log(playerPartialByKeys);
