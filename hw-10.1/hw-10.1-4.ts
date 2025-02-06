@@ -6,16 +6,18 @@ interface IPlayer4 {
   age?: number;
 }
 
-type PartialByKeys<T, K extends keyof T = keyof T> = {
-  [P in keyof T as P extends K ? P : never]?: T[P];
-} & {
-  [P in keyof T as P extends K ? never : P]: T[P];
-} extends infer O
-  ? { [P in keyof O]: O[P] }
-  : never;
+// type PartialByKeys<T, K extends keyof T = keyof T> = {
+//   [P in keyof T as P extends K ? P : never]?: T[P];
+// } & {
+//   [P in keyof T as P extends K ? never : P]: T[P];
+// } extends infer O
+//   ? { [P in keyof O]: O[P] }
+//   : never;
+
+type PartialByKeys<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
 
 const playerPartialByKeys: PartialByKeys<IPlayer4, 'position'> = {
-  // name: 'Bill',
+  name: 'Bill',
   position: 'defender',
 };
 
