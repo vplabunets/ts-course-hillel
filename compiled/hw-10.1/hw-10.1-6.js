@@ -4,4 +4,5 @@ const playerMutableByKeys = {
     name: 'Bill',
     position: 'defender',
 };
-console.log((playerMutableByKeys.name = 'Bobby'));
+console.log((playerMutableByKeys.position = 'Manager')); //NOK Cannot assign to 'position' because it is a read-only property.ts(2540)
+console.log((playerMutableByKeys.name = 'Bobby')); //OK
