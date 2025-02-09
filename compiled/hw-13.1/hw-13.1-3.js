@@ -1,4 +1,5 @@
 "use strict";
+// Завдання #3: Experimental decorators
 var __runInitializers = (this && this.__runInitializers) || function (thisArg, initializers, value) {
     var useValue = arguments.length > 2;
     for (var i = 0; i < initializers.length; i++) {
@@ -33,7 +34,8 @@ var __esDecorate = (this && this.__esDecorate) || function (ctor, descriptorIn, 
     if (target) Object.defineProperty(target, contextIn.name, descriptor);
     done = true;
 };
-function Validate({ minLength, maxLength, email }) {
+// Використайте попередню версію декораторів, переробіть MinLength, MaxLength та Email так, щоб їх можна було використовувати разом.
+function ValidateParameters({ minLength, maxLength, email, }) {
     return function (originalMethod, context) {
         if (context.kind !== 'setter')
             throw new Error('Setter-only decorator');
@@ -82,8 +84,8 @@ let UpgradedFootballTeam2 = (() => {
         },
         (() => {
             const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create(null) : void 0;
-            _set_teamName_decorators = [Validate({ minLength: 5, maxLength: 20 })];
-            _set_coachEmail_decorators = [Validate({ email: true })];
+            _set_teamName_decorators = [ValidateParameters({ minLength: 5, maxLength: 20 })];
+            _set_coachEmail_decorators = [ValidateParameters({ email: true })];
             __esDecorate(_a, null, _set_teamName_decorators, { kind: "setter", name: "teamName", static: false, private: false, access: { has: obj => "teamName" in obj, set: (obj, value) => { obj.teamName = value; } }, metadata: _metadata }, null, _instanceExtraInitializers);
             __esDecorate(_a, null, _set_coachEmail_decorators, { kind: "setter", name: "coachEmail", static: false, private: false, access: { has: obj => "coachEmail" in obj, set: (obj, value) => { obj.coachEmail = value; } }, metadata: _metadata }, null, _instanceExtraInitializers);
             if (_metadata) Object.defineProperty(_a, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
@@ -92,7 +94,7 @@ let UpgradedFootballTeam2 = (() => {
 })();
 const upgradedTeam2 = new UpgradedFootballTeam2('Dreamers', 'coach@dream.com');
 try {
-    upgradedTeam2.teamName = 'FC Gss';
+    upgradedTeam2.teamName = 'FC G';
 }
 catch (error) {
     console.error(error);

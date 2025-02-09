@@ -4,18 +4,24 @@
 //  який може приймати причину, через яку метод не варто використовувати,
 // а також назву методу, яким його можна замінити, якщо це можливо.
 
-function DeprecatedMethod<T extends object, A extends unknown[], R>(
-  originalMethod: (...args: A) => R,
-  context: ClassMethodDecoratorContext<T, (...args: A) => R>
-) {
-  if (context.kind !== 'method') throw new Error('Method-only decorator');
+function DeprecatedMethod(reason?: string, replacement?: string) {
+  return function <T extends object, A extends unknown[], R>(
+    originalMethod: (...args: A) => R,
+    context: ClassMethodDecoratorContext<T, (...args: A) => R>
+  ) {
+    if (context.kind !== 'method') throw new Error('Method-only decorator');
 
-  function replacementMethod(this: T, ...args: A): R {
-    console.warn(`${String(context.name)} is deprecated and will be removed in a future version.`);
-    return originalMethod.apply(this, args);
-  }
+    function replacementMethod(this: T, ...args: A): R {
+      console.warn(
+        `${String(context.name)} is deprecated and will be removed in a future version.` +
+          (reason ? ` Reason: ${reason}.` : '') +
+          (replacement ? ` Use ${replacement} instead.` : '')
+      );
+      return originalMethod.apply(this, args);
+    }
 
-  return replacementMethod;
+    return replacementMethod;
+  };
 }
 
 class FootballTeam {
@@ -27,7 +33,7 @@ class FootballTeam {
     this.players = players;
   }
 
-  @DeprecatedMethod
+  @DeprecatedMethod('This tactic is outdated', 'newTactic')
   oldTactic() {
     console.log(`Using the old tactic for team ${this.teamName}.`);
   }
@@ -36,7 +42,7 @@ class FootballTeam {
     console.log(`Using the new, more efficient tactic for team ${this.teamName}.`);
   }
 
-  @DeprecatedMethod
+  @DeprecatedMethod('This stats method is no longer accurate', 'newPlayerStats')
   oldPlayerStats(player: string) {
     if (!this.players.includes(player)) {
       console.error(`Player ${player} not found in the team ${this.teamName}.`);
@@ -59,7 +65,9 @@ class FootballTeam {
 const team = new FootballTeam('FC Dreamer', ['Illia Zabarnyi', 'Andrii Lunin', 'Volodymyr Brazhko']);
 
 team.oldTactic(); // oldTactic is deprecated and will be removed in a future version.
-team.oldPlayerStats('Diego Maradona'); //Player Diego Maradona not found in the team FC Dreamer.
+// Reason: This tactic is outdated. Use newTactic instead.
+team.oldPlayerStats('Diego Maradona'); //oldPlayerStats is deprecated and will be removed in a future version. Reason: This stats method is no longer accurate. Use newPlayerStats instead.
+//Player Diego Maradona not found in the team FC Dreamer.
 
 team.newTactic(); // Using the new, more efficient tactic for team FC Dreamer.
 team.newPlayerStats('John Doe'); // Player John Doe not found in the team FC Dreamer..
