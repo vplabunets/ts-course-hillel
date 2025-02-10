@@ -11,6 +11,20 @@ class Task {
         this.status = false;
         this.confirmationRequired = confirmationRequired;
     }
+    modifyTask(updatedTask) {
+        var _a;
+        if (this.confirmationRequired) {
+            const isConfirmed = true;
+            if (!isConfirmed) {
+                console.log('Modification not confirmed');
+                return;
+            }
+        }
+        this.title = updatedTask.title || this.title;
+        this.text = updatedTask.text || this.text;
+        this.modificationDate = new Date();
+        this.status = (_a = updatedTask.status) !== null && _a !== void 0 ? _a : this.status;
+    }
 }
 var Sorting;
 (function (Sorting) {
@@ -30,16 +44,6 @@ class TodoList {
             console.log('Please, confirm task removal');
         }
         this.tasks = this.tasks.filter((task) => task.id !== id);
-    }
-    modifyTask(updatedTask) {
-        const taskIndex = this.tasks.findIndex((task) => task.id === updatedTask.id);
-        if (taskIndex === -1) {
-            throw new Error(`Task with id ${updatedTask.id} not found.`);
-        }
-        else if (this.tasks[taskIndex].confirmationRequired) {
-            console.log('Please, confirm modification');
-        }
-        this.tasks[taskIndex] = Object.assign(Object.assign(Object.assign({}, this.tasks[taskIndex]), updatedTask), { modificationDate: new Date() });
     }
     statusHandler(id) {
         const task = this.getTaskInfo(id);
@@ -95,7 +99,8 @@ console.log('All tasks list:', todoList.getAllTasks());
 console.log('Task #1 info:', todoList.getTaskInfo('1'));
 todoList.statusHandler('2');
 console.log('Task #2 info after modification:', todoList.getAllTasks());
-todoList.modifyTask({ id: '3', title: 'Complete additional tasks', status: false });
+todoList.getTaskInfo('1').modifyTask({ title: 'Complete additional tasks', status: false });
+console.log(todoList.getTaskInfo('1'));
 console.log('All tasks list after modification:', todoList.getAllTasks());
 todoList.deleteTask('1');
 console.log('All tasks list after removing:', todoList.getAllTasks());
