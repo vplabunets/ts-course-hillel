@@ -93,9 +93,10 @@ let FootballTeam = (() => {
         _a;
 })();
 const team = new FootballTeam('FC Dreamer', ['Illia Zabarnyi', 'Andrii Lunin', 'Volodymyr Brazhko']);
-// team.oldTactic(); // oldTactic is deprecated and will be removed in a future version.
+team.oldTactic(); // oldTactic is deprecated and will be removed in a future version.
 // Reason: This tactic is outdated. Use newTactic instead.
-team.oldPlayerStats('Diego Maradona'); //Player Diego Maradona not found in the team FC Dreamer.
-// team.newTactic(); // Using the new, more efficient tactic for team FC Dreamer.
-// team.newPlayerStats('John Doe'); // Player John Doe not found in the team FC Dreamer..
-// team.newPlayerStats('Illia Zabarnyi'); // Showing new, detailed stats for player Illia Zabarnyi.
+team.oldPlayerStats('Diego Maradona'); //oldPlayerStats is deprecated and will be removed in a future version. Reason: This stats method is no longer accurate. Use newPlayerStats instead.
+//Player Diego Maradona not found in the team FC Dreamer.
+team.newTactic(); // Using the new, more efficient tactic for team FC Dreamer.
+team.newPlayerStats('John Doe'); // Player John Doe not found in the team FC Dreamer..
+team.newPlayerStats('Illia Zabarnyi'); // Showing new, detailed stats for player Illia Zabarnyi.
