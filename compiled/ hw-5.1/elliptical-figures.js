@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.EllipticalFigure = exports.Ellipse = exports.Circle = void 0;
 const abstract_classes_1 = require("./abstract-classes");
 const PI = Math.PI;
 const POWER_VALUE = 2;
@@ -20,6 +21,7 @@ class Circle extends abstract_classes_1.AbstractEllipticalFigureClass {
         return `${this.color} ${this.name} with radius ${this.radius} has area: ${this.calculateArea()}  `;
     }
 }
+exports.Circle = Circle;
 class Ellipse extends abstract_classes_1.AbstractEllipticalFigureClass {
     constructor(color, radius) {
         super('Ellipse', color);
@@ -40,6 +42,7 @@ class Ellipse extends abstract_classes_1.AbstractEllipticalFigureClass {
         return `${this.color} ${this.name} with radius ${this.radius} has area: ${this.calculateArea()}  `;
     }
 }
+exports.Ellipse = Ellipse;
 class EllipticalFigure extends abstract_classes_1.AbstractEllipticalFigureClass {
     constructor(name, color, radius) {
         super(name, color);
@@ -69,6 +72,7 @@ class EllipticalFigure extends abstract_classes_1.AbstractEllipticalFigureClass 
         return `${this.color} ${this.name} with radius ${this.radius} has area: ${this.calculateArea()}  `;
     }
 }
+exports.EllipticalFigure = EllipticalFigure;
 const myCircle = new Circle('red', 2);
 console.log(myCircle.calculateArea());
 console.log(myCircle.printInfo());

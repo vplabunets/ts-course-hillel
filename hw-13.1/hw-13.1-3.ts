@@ -2,7 +2,7 @@
 
 // Використайте попередню версію декораторів, переробіть MinLength, MaxLength та Email так, щоб їх можна було використовувати разом.
 
-function ValidateParameters({
+export function ValidateParameters({
   minLength,
   maxLength,
   email,
@@ -24,7 +24,7 @@ function ValidateParameters({
       }
 
       if (email) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
         if (!emailRegex.test(value)) {
           throw new Error(`Invalid email format for ${String(context.name)}.`);
         }
@@ -37,7 +37,7 @@ function ValidateParameters({
   };
 }
 
-class UpgradedFootballTeam2 {
+export class UpgradedFootballTeam2 {
   private _teamName: string = '';
   private _coachEmail: string = '';
 
@@ -65,7 +65,7 @@ class UpgradedFootballTeam2 {
   }
 }
 
-const upgradedTeam2 = new UpgradedFootballTeam2('Dreamers', 'coach@dream.com');
+export const upgradedTeam2 = new UpgradedFootballTeam2('Dreamers', 'coach@dream.com');
 
 try {
   upgradedTeam2.teamName = 'FC G';

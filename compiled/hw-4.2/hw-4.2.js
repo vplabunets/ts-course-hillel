@@ -1,5 +1,7 @@
 "use strict";
 // Вам необхідно створити інтерфейс і відповідний функціонал для реалізації простого калькулятора.
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Calculator = exports.Operations = exports.CalculationError = void 0;
 // Калькулятор працюватиме з базовими арифметичними операціями,
 // а також забезпечить додаткову операцію для обчислення відсотка від числа.
 // Створіть інтерфейс ICalculator, який описуватиме об'єкт-калькулятор.
@@ -12,12 +14,13 @@
 // Створіть клас Calculator, який реалізує ICalculator та дозволяє виконувати обчислення:
 // Необхідно описати метод, що прийматиме "операцію" та необхідні параметри
 // За потреби реалізувати перевантаження
-class calculationError extends Error {
+class CalculationError extends Error {
     constructor(message) {
         super(message);
-        this.name = 'calculationError';
+        this.name = 'CalculationError';
     }
 }
+exports.CalculationError = CalculationError;
 var Operations;
 (function (Operations) {
     Operations["Add"] = "add";
@@ -25,7 +28,7 @@ var Operations;
     Operations["Multiply"] = "multiply";
     Operations["Divide"] = "divide";
     Operations["Percent"] = "percent";
-})(Operations || (Operations = {}));
+})(Operations || (exports.Operations = Operations = {}));
 class Calculator {
     add(argument1, argument2) {
         return argument1 + argument2;
@@ -41,7 +44,7 @@ class Calculator {
             return argument1 / argument2;
         }
         else {
-            throw new calculationError('Division by 0 is forbidden');
+            throw new CalculationError('Division by 0 is forbidden');
         }
     }
     percent(argument1, argument2) {
@@ -60,10 +63,11 @@ class Calculator {
             case Operations.Percent:
                 return this.percent(argument1, argument2);
             default:
-                throw new calculationError('Invalid operation');
+                throw new CalculationError('Invalid operation');
         }
     }
 }
+exports.Calculator = Calculator;
 const myCalculator = new Calculator();
 console.log('10 * 20 = 200', myCalculator.calculate(Operations.Multiply, 10, 20));
 console.log('10 + 20 = 30', myCalculator.calculate(Operations.Add, 10, 20));

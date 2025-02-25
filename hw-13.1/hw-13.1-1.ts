@@ -4,7 +4,7 @@
 //  який може приймати причину, через яку метод не варто використовувати,
 // а також назву методу, яким його можна замінити, якщо це можливо.
 
-function DeprecatedMethod(reason?: string, replacement?: string) {
+export function DeprecatedMethod(reason?: string, replacement?: string) {
   return function <T extends object, A extends unknown[], R>(
     originalMethod: (...args: A) => R,
     context: ClassMethodDecoratorContext<T, (...args: A) => R>
@@ -24,7 +24,7 @@ function DeprecatedMethod(reason?: string, replacement?: string) {
   };
 }
 
-class FootballTeam {
+export class FootballTeam {
   teamName: string;
   players: string[];
 
@@ -70,5 +70,5 @@ team.oldPlayerStats('Diego Maradona'); //oldPlayerStats is deprecated and will b
 //Player Diego Maradona not found in the team FC Dreamer.
 
 team.newTactic(); // Using the new, more efficient tactic for team FC Dreamer.
-team.newPlayerStats('John Doe'); // Player John Doe not found in the team FC Dreamer..
+// team.newPlayerStats('John Doe'); // Player John Doe not found in the team FC Dreamer..
 team.newPlayerStats('Illia Zabarnyi'); // Showing new, detailed stats for player Illia Zabarnyi.

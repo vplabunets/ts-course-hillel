@@ -1,5 +1,7 @@
 "use strict";
 // Вам необхідно створити інтерфейс книжкового сервісу. Також продумайте інтерфейси для опису книг та авторів.
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.BookService = exports.Book = exports.Author = exports.BookGenre = void 0;
 // Створіть інтерфейс IBookService, який описуватиме сервіс роботи з книгами.
 // Цей інтерфейс має містити методи для виконання наступних операцій:
 // getBooks - отримання всіх доступних книг
@@ -29,7 +31,7 @@ var BookGenre;
     BookGenre["Philosophy"] = "Philosophy";
     BookGenre["Science"] = "Science";
     BookGenre["Drama"] = "Drama";
-})(BookGenre || (BookGenre = {}));
+})(BookGenre || (exports.BookGenre = BookGenre = {}));
 class Author {
     constructor(id, firstName, lastName) {
         this.id = id;
@@ -37,6 +39,7 @@ class Author {
         this.lastName = lastName;
     }
 }
+exports.Author = Author;
 class Book {
     constructor(title, publicationYear, genre, authorId, id) {
         this.id = id;
@@ -46,6 +49,7 @@ class Book {
         this.authorId = authorId;
     }
 }
+exports.Book = Book;
 class BookService {
     constructor() {
         this.books = [];
@@ -70,7 +74,13 @@ class BookService {
         return this.authors.find((author) => author.id === authorId) || 'Author with requested ID was not found';
     }
     getBooksByAuthor(authorId) {
-        return this.books.filter((book) => book.id === authorId) || 'Books with requested author were not found';
+        const filteredBooks = this.books.filter((book) => book.id === authorId);
+        if (filteredBooks.length > 0) {
+            return filteredBooks;
+        }
+        else {
+            return 'Books with requested author were not found';
+        }
     }
     getAuthorByBookId(id) {
         const book = this.books.find((book) => book.id === id);
@@ -85,6 +95,7 @@ class BookService {
             String(book.publicationYear).includes(query));
     }
 }
+exports.BookService = BookService;
 const book1 = new Book('Digital Fortress', 1998, BookGenre.Fiction, 1, 123);
 const book2 = new Book('The Code Da Vinchi', 2003, BookGenre.Fiction, 1, 124);
 const book3 = new Book('Poviia', 1884, BookGenre.Drama, 2, 125);

@@ -13,7 +13,7 @@ export enum PolygonType {
   Nonagon = 'Nonagon',
   Decagon = 'Decagon',
 }
-class Rectangle extends AbstractPolygonFigureClass {
+export class Rectangle extends AbstractPolygonFigureClass {
   sides: number[];
 
   constructor(color: string, sides: number[]) {
@@ -35,7 +35,7 @@ console.log('Rectangle perimeter:', myRectangle.calculatePerimeter());
 console.log(myRectangle.printPerimeterFormula());
 console.log('Rectangle info:', myRectangle.printInfo());
 
-class Square extends AbstractPolygonFigureClass {
+export class Square extends AbstractPolygonFigureClass {
   sides: number[];
 
   constructor(color: string, sides: number[]) {
@@ -57,7 +57,7 @@ console.log('Square perimeter:', mySquare.calculatePerimeter());
 console.log(mySquare.printPerimeterFormula());
 console.log('Square info:', mySquare.printInfo());
 
-class Triangle extends AbstractPolygonFigureClass {
+export class Triangle extends AbstractPolygonFigureClass {
   sides: number[];
   triangleType: string = '';
 
@@ -122,7 +122,7 @@ console.log(myTriangle.printPerimeterFormula());
 console.log('Triangle info:', myTriangle.printInfo());
 console.log(myTriangle.calcHeight());
 
-class Polygon extends AbstractPolygonFigureClass {
+export class Polygon extends AbstractPolygonFigureClass {
   sides: number[];
 
   constructor(color: string, sides: number[]) {
