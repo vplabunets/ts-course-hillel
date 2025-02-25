@@ -5,7 +5,7 @@ type BlockUserAction = { type: 'BLOCK_USER'; payload: { userId: number; reason: 
 
 type Action = CreateUserAction | DeleteUserAction | UpdateUserAction | BlockUserAction;
 
-function handleAction(action: Action): void | never {
+export function handleAction(action: Action): void | never {
   switch (action.type) {
     case 'CREATE_USER':
       console.log('name:', action.payload.name, 'age:', action.payload.age);

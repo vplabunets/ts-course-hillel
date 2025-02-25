@@ -1,5 +1,7 @@
 "use strict";
 // Вам необхідно написати додаток Todo list. У додатку повинна бути наступна функціональність:
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.TodoList = exports.Sorting = exports.Task = void 0;
 class Task {
     constructor(id, title, text, confirmationRequired) {
         this.modificationDate = new Date();
@@ -25,12 +27,17 @@ class Task {
         this.modificationDate = new Date();
         this.status = (_a = updatedTask.status) !== null && _a !== void 0 ? _a : this.status;
     }
+    toggleStatus() {
+        this.status = !this.status;
+        this.modificationDate = new Date();
+    }
 }
+exports.Task = Task;
 var Sorting;
 (function (Sorting) {
     Sorting["Ascending"] = "ASCENDING";
     Sorting["Descending"] = "DESCENDING";
-})(Sorting || (Sorting = {}));
+})(Sorting || (exports.Sorting = Sorting = {}));
 class TodoList {
     constructor() {
         this.tasks = [];
@@ -44,13 +51,6 @@ class TodoList {
             console.log('Please, confirm task removal');
         }
         this.tasks = this.tasks.filter((task) => task.id !== id);
-    }
-    statusHandler(id) {
-        const task = this.getTaskInfo(id);
-        if (task) {
-            task.status = !task.status;
-            task.modificationDate = new Date();
-        }
     }
     getTaskInfo(id) {
         const task = this.tasks.find((task) => task.id === id);
@@ -88,6 +88,7 @@ class TodoList {
         });
     }
 }
+exports.TodoList = TodoList;
 const todoList = new TodoList();
 const task1 = new Task('1', 'Generic', 'Read docs', true);
 const task2 = new Task('2', 'Conditional Types', 'Test Conditional Types', true);
@@ -97,8 +98,6 @@ todoList.addTask(task2);
 todoList.addTask(task3);
 console.log('All tasks list:', todoList.getAllTasks());
 console.log('Task #1 info:', todoList.getTaskInfo('1'));
-todoList.statusHandler('2');
-console.log('Task #2 info after modification:', todoList.getAllTasks());
 todoList.getTaskInfo('1').modifyTask({ title: 'Complete additional tasks', status: false });
 console.log(todoList.getTaskInfo('1'));
 console.log('All tasks list after modification:', todoList.getAllTasks());

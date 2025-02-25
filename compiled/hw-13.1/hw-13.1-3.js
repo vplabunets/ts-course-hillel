@@ -34,6 +34,8 @@ var __esDecorate = (this && this.__esDecorate) || function (ctor, descriptorIn, 
     if (target) Object.defineProperty(target, contextIn.name, descriptor);
     done = true;
 };
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.upgradedTeam2 = exports.UpgradedFootballTeam2 = exports.ValidateParameters = void 0;
 // Використайте попередню версію декораторів, переробіть MinLength, MaxLength та Email так, щоб їх можна було використовувати разом.
 function ValidateParameters({ minLength, maxLength, email, }) {
     return function (originalMethod, context) {
@@ -47,7 +49,7 @@ function ValidateParameters({ minLength, maxLength, email, }) {
                 throw new Error(`${String(context.name)} must have at most ${maxLength} characters.`);
             }
             if (email) {
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
                 if (!emailRegex.test(value)) {
                     throw new Error(`Invalid email format for ${String(context.name)}.`);
                 }
@@ -57,6 +59,7 @@ function ValidateParameters({ minLength, maxLength, email, }) {
         return replacementMethod;
     };
 }
+exports.ValidateParameters = ValidateParameters;
 let UpgradedFootballTeam2 = (() => {
     var _a;
     let _instanceExtraInitializers = [];
@@ -92,20 +95,21 @@ let UpgradedFootballTeam2 = (() => {
         })(),
         _a;
 })();
-const upgradedTeam2 = new UpgradedFootballTeam2('Dreamers', 'coach@dream.com');
+exports.UpgradedFootballTeam2 = UpgradedFootballTeam2;
+exports.upgradedTeam2 = new UpgradedFootballTeam2('Dreamers', 'coach@dream.com');
 try {
-    upgradedTeam2.teamName = 'FC G';
+    exports.upgradedTeam2.teamName = 'FC G';
 }
 catch (error) {
     console.error(error);
 }
 try {
-    upgradedTeam2.coachEmail = 'wrong@sticker.penalty';
+    exports.upgradedTeam2.coachEmail = 'wrong@sticker.penalty';
 }
 catch (error) {
     console.error(error);
 }
-upgradedTeam2.teamName = 'New Dreamer FC';
-console.log(upgradedTeam2.teamName);
-upgradedTeam2.coachEmail = 'newcoach@dreamers.com';
-console.log(upgradedTeam2.coachEmail);
+exports.upgradedTeam2.teamName = 'New Dreamer FC';
+console.log(exports.upgradedTeam2.teamName);
+exports.upgradedTeam2.coachEmail = 'newcoach@dreamers.com';
+console.log(exports.upgradedTeam2.coachEmail);

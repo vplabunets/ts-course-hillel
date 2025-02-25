@@ -1,4 +1,4 @@
-enum Languages {
+export enum Languages {
   EN = 'English',
   UK = 'Ukrainian',
   FR = 'French',
@@ -8,11 +8,11 @@ enum Languages {
   PT = 'Portuguese',
 }
 
-type Translations = {
+export type Translations = {
   [languageKey: string]: string;
 };
 
-const wordNew: Translations = {
+export const wordNew: Translations = {
   EN: 'new',
   UK: 'новий',
   FR: 'nouveau',
@@ -20,7 +20,7 @@ const wordNew: Translations = {
   CZ: 'novy',
   IT: 'nuovo',
 };
-const wordYear: Translations = {
+export const wordYear: Translations = {
   EN: 'year',
   UK: 'рік',
   FR: 'anne',
@@ -29,11 +29,11 @@ const wordYear: Translations = {
   IT: 'anno',
 };
 
-function concatenateTranslations(key: keyof typeof Languages, ...translations: Translations[]): string {
+export function concatenateTranslations(key: keyof typeof Languages, ...translations: Translations[]): string {
   const values = translations.map((trans) => trans[key]);
 
   if (values.some((value) => value === undefined)) {
-    return `Translation for ${Languages[key]} languan`;
+    return `Translation for ${Languages[key]} language is missing`;
   }
 
   return values.join(' ');
@@ -47,12 +47,12 @@ console.log(concatenateTranslations('DE', wordNew, wordYear));
 console.log(concatenateTranslations('IT', wordNew, wordYear));
 console.log(concatenateTranslations('PT', wordNew, wordYear));
 
-type OptionalTranslations = {
+export type OptionalTranslations = {
   [languageKey: string]: string | undefined;
   default?: string;
 };
 
-const wordNew2: OptionalTranslations = {
+export const wordNew2: OptionalTranslations = {
   en: 'new',
   uk: 'новий',
   fr: 'nouveau',
@@ -61,7 +61,7 @@ const wordNew2: OptionalTranslations = {
   it: 'nuovo',
   default: 'new',
 };
-const wordYear2: OptionalTranslations = {
+export const wordYear2: OptionalTranslations = {
   en: 'year',
   uk: 'рік',
   fr: 'anne',
@@ -71,7 +71,7 @@ const wordYear2: OptionalTranslations = {
   default: 'year',
 };
 
-function concatenateTranslations2(key: keyof typeof Languages, ...translations: OptionalTranslations[]): string {
+export function concatenateTranslations2(key: keyof typeof Languages, ...translations: OptionalTranslations[]): string {
   const values = translations.map((trans) => trans[key]);
 
   if (values.some((value) => value === undefined)) {

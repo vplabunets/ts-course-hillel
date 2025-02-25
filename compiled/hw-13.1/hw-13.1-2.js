@@ -34,6 +34,8 @@ var __esDecorate = (this && this.__esDecorate) || function (ctor, descriptorIn, 
     if (target) Object.defineProperty(target, contextIn.name, descriptor);
     done = true;
 };
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.UpgradedFootballTeam = exports.Email = exports.MaxLength = exports.MinLength = void 0;
 // Створіть декоратори для полів MinLength, MaxLength та Email.
 function MinLength(minLength) {
     return function (originalMethod, context) {
@@ -48,6 +50,7 @@ function MinLength(minLength) {
         return replacementMethod;
     };
 }
+exports.MinLength = MinLength;
 function MaxLength(maxLength) {
     return function (originalMethod, context) {
         if (context.kind !== 'setter')
@@ -61,6 +64,7 @@ function MaxLength(maxLength) {
         return replacementMethod;
     };
 }
+exports.MaxLength = MaxLength;
 function Email(originalMethod, context) {
     if (context.kind !== 'setter')
         throw new Error('Setter-only decorator');
@@ -73,6 +77,7 @@ function Email(originalMethod, context) {
     }
     return replacementMethod;
 }
+exports.Email = Email;
 let UpgradedFootballTeam = (() => {
     var _a;
     let _instanceExtraInitializers = [];
@@ -108,14 +113,14 @@ let UpgradedFootballTeam = (() => {
         })(),
         _a;
 })();
+exports.UpgradedFootballTeam = UpgradedFootballTeam;
 const upgradedTeam = new UpgradedFootballTeam('Dreamers', 'coach@dream.com');
-try {
-    upgradedTeam.teamName = 'FC G';
-    console.log(upgradedTeam.teamName);
-}
-catch (error) {
-    console.error(error);
-}
+// try {
+//   upgradedTeam.teamName = 'FC G';
+//   console.log(upgradedTeam.teamName);
+// } catch (error) {
+//   console.error(error);
+// }
 try {
     upgradedTeam.coachEmail = 'wrong@sticker.penalty';
     console.log(upgradedTeam.coachEmail);

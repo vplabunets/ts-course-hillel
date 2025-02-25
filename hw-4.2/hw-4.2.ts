@@ -18,14 +18,14 @@
 // Необхідно описати метод, що прийматиме "операцію" та необхідні параметри
 // За потреби реалізувати перевантаження
 
-class calculationError extends Error {
+export class CalculationError extends Error {
   constructor(message: string) {
     super(message);
-    this.name = 'calculationError';
+    this.name = 'CalculationError';
   }
 }
 
-enum Operations {
+export enum Operations {
   Add = 'add',
   Subtract = 'subtract',
   Multiply = 'multiply',
@@ -44,7 +44,7 @@ interface ICalculator {
   calculate(operation: Operations, argument1: number, argument2: number): CalculateReturnType;
 }
 
-class Calculator implements ICalculator {
+export class Calculator implements ICalculator {
   add(argument1: number, argument2: number): number {
     return argument1 + argument2;
   }
@@ -61,7 +61,7 @@ class Calculator implements ICalculator {
     if (argument2 !== 0) {
       return argument1 / argument2;
     } else {
-      throw new calculationError('Division by 0 is forbidden');
+      throw new CalculationError('Division by 0 is forbidden');
     }
   }
 
@@ -82,7 +82,7 @@ class Calculator implements ICalculator {
       case Operations.Percent:
         return this.percent(argument1, argument2);
       default:
-        throw new calculationError('Invalid operation');
+        throw new CalculationError('Invalid operation');
     }
   }
 }

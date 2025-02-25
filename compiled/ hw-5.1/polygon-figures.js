@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PolygonType = void 0;
+exports.Polygon = exports.Triangle = exports.Square = exports.Rectangle = exports.PolygonType = void 0;
 const utils_1 = require("./utils");
 const abstract_classes_1 = require("./abstract-classes");
 var QuadrilateralType;
@@ -30,6 +30,7 @@ class Rectangle extends abstract_classes_1.AbstractPolygonFigureClass {
         return `Area of ${this.name} = side1 * side2`;
     }
 }
+exports.Rectangle = Rectangle;
 const myRectangle = new Rectangle('yellow', [2, 4, 2, 4]);
 console.log('Rectangle has', myRectangle.getNumberOfSides());
 console.log('Rectangle perimeter:', myRectangle.calculatePerimeter());
@@ -47,6 +48,7 @@ class Square extends abstract_classes_1.AbstractPolygonFigureClass {
         return `Area of ${this.name} = side1^2`;
     }
 }
+exports.Square = Square;
 const mySquare = new Square('yellow', [2, 2, 2, 2]);
 console.log('Square has', mySquare.getNumberOfSides(), ' sides');
 console.log('Square perimeter:', mySquare.calculatePerimeter());
@@ -106,6 +108,7 @@ class Triangle extends abstract_classes_1.AbstractPolygonFigureClass {
         }
     }
 }
+exports.Triangle = Triangle;
 const myTriangle = new Triangle('pink', [4, 5, 4]);
 console.log('Triangle has', myTriangle.getNumberOfSides(), ' sides');
 console.log('Triangle perimeter:', myTriangle.calculatePerimeter());
@@ -124,6 +127,7 @@ class Polygon extends abstract_classes_1.AbstractPolygonFigureClass {
         return `Area of ${this.name} = side1 * side2`;
     }
 }
+exports.Polygon = Polygon;
 const myPolygon = new Polygon('green', [2, 4, 2, 4, 4, 2]);
 console.log('Polygons has', myPolygon.getNumberOfSides(), ' sides');
 console.log('Polygon perimeter:', myPolygon.calculatePerimeter());

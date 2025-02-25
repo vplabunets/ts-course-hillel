@@ -1,4 +1,6 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.handleAction = void 0;
 function handleAction(action) {
     switch (action.type) {
         case 'CREATE_USER':
@@ -17,6 +19,7 @@ function handleAction(action) {
             throw Error('Action type is not correct');
     }
 }
+exports.handleAction = handleAction;
 handleAction({ type: 'CREATE_USER', payload: { name: 'Monica Belucci', age: 50 } });
 handleAction({ type: 'DELETE_USER', payload: { userId: 11111 } });
 handleAction({ type: 'UPDATE_USER', payload: { userId: 11111, name: 'Vensan Cassel', age: 51 } });

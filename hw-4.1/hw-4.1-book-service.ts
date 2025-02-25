@@ -13,7 +13,7 @@
 // search - глобальний пошук за назвою книги, жанром, роком видання чи автором
 // Реалізація сервісу з прикладами. Опишіть свої улюблені книги.
 
-enum BookGenre {
+export enum BookGenre {
   Fiction = 'Fiction',
   NonFiction = 'NonFiction',
   Mystery = 'Mystery',
@@ -55,12 +55,12 @@ interface IBookService {
   getBookById(id: number): IBook | string;
   getAuthors(): IAuthor[];
   getAuthorById(authorId: number): IAuthor | string;
-  getBooksByAuthor(authorId: number): IBook[];
+  getBooksByAuthor(authorId: number): IBook[] | string;
   getAuthorByBookId(id: number): IAuthor | string;
   search(query: string): IBook[];
 }
 
-class Author implements IAuthor {
+export class Author implements IAuthor {
   id: number;
   firstName: string;
   lastName: string;
@@ -71,7 +71,7 @@ class Author implements IAuthor {
   }
 }
 
-class Book implements IBook {
+export class Book implements IBook {
   id: number;
   title: string;
   publicationYear: number;
@@ -95,7 +95,7 @@ class Book implements IBook {
   // }
 }
 
-class BookService implements IBookService {
+export class BookService implements IBookService {
   books: IBook[] = [];
   authors: IAuthor[] = [];
 
@@ -117,8 +117,13 @@ class BookService implements IBookService {
   getAuthorById(authorId: number): IAuthor | string {
     return this.authors.find((author) => author.id === authorId) || 'Author with requested ID was not found';
   }
-  getBooksByAuthor(authorId: number): IBook[] {
-    return this.books.filter((book) => book.id === authorId) || 'Books with requested author were not found';
+  getBooksByAuthor(authorId: number): IBook[] | string {
+    const filteredBooks = this.books.filter((book) => book.id === authorId);
+    if (filteredBooks.length > 0) {
+      return filteredBooks;
+    } else {
+      return 'Books with requested author were not found';
+    }
   }
   getAuthorByBookId(id: number): IAuthor | string {
     const book = this.books.find((book) => book.id === id);

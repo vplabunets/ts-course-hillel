@@ -34,6 +34,8 @@ var __esDecorate = (this && this.__esDecorate) || function (ctor, descriptorIn, 
     if (target) Object.defineProperty(target, contextIn.name, descriptor);
     done = true;
 };
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.FootballTeam = exports.DeprecatedMethod = void 0;
 // Створіть декоратор DeprecatedMethod і навчіть його працювати з об'єктом,
 //  який може приймати причину, через яку метод не варто використовувати,
 // а також назву методу, яким його можна замінити, якщо це можливо.
@@ -50,6 +52,7 @@ function DeprecatedMethod(reason, replacement) {
         return replacementMethod;
     };
 }
+exports.DeprecatedMethod = DeprecatedMethod;
 let FootballTeam = (() => {
     var _a;
     let _instanceExtraInitializers = [];
@@ -92,11 +95,12 @@ let FootballTeam = (() => {
         })(),
         _a;
 })();
+exports.FootballTeam = FootballTeam;
 const team = new FootballTeam('FC Dreamer', ['Illia Zabarnyi', 'Andrii Lunin', 'Volodymyr Brazhko']);
 team.oldTactic(); // oldTactic is deprecated and will be removed in a future version.
 // Reason: This tactic is outdated. Use newTactic instead.
 team.oldPlayerStats('Diego Maradona'); //oldPlayerStats is deprecated and will be removed in a future version. Reason: This stats method is no longer accurate. Use newPlayerStats instead.
 //Player Diego Maradona not found in the team FC Dreamer.
 team.newTactic(); // Using the new, more efficient tactic for team FC Dreamer.
-team.newPlayerStats('John Doe'); // Player John Doe not found in the team FC Dreamer..
+// team.newPlayerStats('John Doe'); // Player John Doe not found in the team FC Dreamer..
 team.newPlayerStats('Illia Zabarnyi'); // Showing new, detailed stats for player Illia Zabarnyi.

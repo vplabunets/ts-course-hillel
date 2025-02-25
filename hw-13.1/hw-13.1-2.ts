@@ -2,7 +2,7 @@
 
 // Створіть декоратори для полів MinLength, MaxLength та Email.
 
-function MinLength(minLength: number) {
+export function MinLength(minLength: number) {
   return function <T>(originalMethod: (value: string) => void, context: ClassSetterDecoratorContext<T, string>) {
     if (context.kind !== 'setter') throw new Error('Setter-only decorator');
 
@@ -17,7 +17,7 @@ function MinLength(minLength: number) {
   };
 }
 
-function MaxLength(maxLength: number) {
+export function MaxLength(maxLength: number) {
   return function <T>(originalMethod: (value: string) => void, context: ClassSetterDecoratorContext<T, string>) {
     if (context.kind !== 'setter') throw new Error('Setter-only decorator');
 
@@ -32,7 +32,7 @@ function MaxLength(maxLength: number) {
   };
 }
 
-function Email<T>(originalMethod: (value: string) => void, context: ClassSetterDecoratorContext<T, string>) {
+export function Email<T>(originalMethod: (value: string) => void, context: ClassSetterDecoratorContext<T, string>) {
   if (context.kind !== 'setter') throw new Error('Setter-only decorator');
 
   function replacementMethod(this: T, value: string): void {
@@ -47,7 +47,7 @@ function Email<T>(originalMethod: (value: string) => void, context: ClassSetterD
   return replacementMethod;
 }
 
-class UpgradedFootballTeam {
+export class UpgradedFootballTeam {
   private _teamName: string = '';
   private _coachEmail: string = '';
 
@@ -78,12 +78,12 @@ class UpgradedFootballTeam {
 
 const upgradedTeam = new UpgradedFootballTeam('Dreamers', 'coach@dream.com');
 
-try {
-  upgradedTeam.teamName = 'FC G';
-  console.log(upgradedTeam.teamName);
-} catch (error) {
-  console.error(error);
-}
+// try {
+//   upgradedTeam.teamName = 'FC G';
+//   console.log(upgradedTeam.teamName);
+// } catch (error) {
+//   console.error(error);
+// }
 
 try {
   upgradedTeam.coachEmail = 'wrong@sticker.penalty';

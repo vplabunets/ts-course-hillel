@@ -17,7 +17,7 @@
 // Звичайні (дефолтні)
 // Які вимагають підтвердження при видаленні та редагуванні
 
-interface ITask {
+export interface ITask {
   readonly id: string;
   title: string;
   text: string;
@@ -26,9 +26,10 @@ interface ITask {
   status: boolean;
   confirmationRequired: boolean;
   modifyTask(updatedTask: Partial<ITask>): void;
+  toggleStatus(): void;
 }
 
-class Task implements ITask {
+export class Task implements ITask {
   readonly id: string;
   title: string;
   text: string;
@@ -60,14 +61,18 @@ class Task implements ITask {
     this.modificationDate = new Date();
     this.status = updatedTask.status ?? this.status;
   }
+  toggleStatus(): void {
+    this.status = !this.status;
+    this.modificationDate = new Date();
+  }
 }
 
-enum Sorting {
+export enum Sorting {
   Ascending = 'ASCENDING',
   Descending = 'DESCENDING',
 }
 
-class TodoList<T extends ITask> {
+export class TodoList<T extends ITask> {
   private tasks: T[] = [];
 
   addTask(task: T): void {
@@ -79,14 +84,6 @@ class TodoList<T extends ITask> {
       console.log('Please, confirm task removal');
     }
     this.tasks = this.tasks.filter((task: T) => task.id !== id);
-  }
-
-  statusHandler(id: string): void | never {
-    const task = this.getTaskInfo(id);
-    if (task) {
-      task.status = !task.status;
-      task.modificationDate = new Date();
-    }
   }
 
   getTaskInfo(id: string): T | never {
@@ -147,9 +144,6 @@ todoList.addTask(task3);
 console.log('All tasks list:', todoList.getAllTasks());
 
 console.log('Task #1 info:', todoList.getTaskInfo('1'));
-
-todoList.statusHandler('2');
-console.log('Task #2 info after modification:', todoList.getAllTasks());
 
 todoList.getTaskInfo('1').modifyTask({ title: 'Complete additional tasks', status: false });
 console.log(todoList.getTaskInfo('1'));

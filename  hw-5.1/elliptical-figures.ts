@@ -4,7 +4,7 @@ const PI = Math.PI;
 const POWER_VALUE = 2;
 const CIRCLE_PERIMETER_MULTIPLIER = 2;
 const ELLIPSE_PERIMETER_MULTIPLIER = 4;
-class Circle extends AbstractEllipticalFigureClass {
+export class Circle extends AbstractEllipticalFigureClass {
   radius: number;
 
   constructor(color: string, radius: number) {
@@ -24,7 +24,7 @@ class Circle extends AbstractEllipticalFigureClass {
   }
 }
 
-class Ellipse extends AbstractEllipticalFigureClass {
+export class Ellipse extends AbstractEllipticalFigureClass {
   color: string;
   radius: number[];
 
@@ -54,7 +54,7 @@ class Ellipse extends AbstractEllipticalFigureClass {
   }
 }
 
-class EllipticalFigure extends AbstractEllipticalFigureClass {
+export class EllipticalFigure extends AbstractEllipticalFigureClass {
   radius: number | number[];
 
   constructor(name: string, color: string, radius: number | number[]) {
